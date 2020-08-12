@@ -41,3 +41,10 @@ if __name__ == "__main__":
     with gzip.open('Data/portfolio.csv.gz', 'rt') as f:
         for line in f:
             print(line, end='')
+
+    import csv
+    f = open('Data/portfolio.csv')
+    rows = csv.reader(f)
+    headers = next(rows)
+    for row in rows:
+        print(row)

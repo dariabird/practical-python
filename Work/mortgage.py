@@ -25,10 +25,13 @@ def mortgage():
         if month >= extra_payment_start_month and month <= extra_payment_end_month:
             principal = principal - extra_payment
             total_paid = total_paid + extra_payment
-        print("{} {} {}".format(month, round(total_paid, 2), round(principal, 2)))
+        # print("{} {} {}".format(month, round(total_paid, 2), round(principal, 2)))
+        print(f'Months: {month}; Total Paid: {total_paid:0.2f}; Principal: {principal:0.2f}')
 
-    print('Total paid', round(total_paid, 2))
-    print('Months', month)
+    # print('Total paid', round(total_paid, 2))
+    print(f'Total paid: {total_paid:0.2f}')
+    # print('Months', month)
+    print(f'Months: {month}')
 
 
 if __name__ == "__main__":

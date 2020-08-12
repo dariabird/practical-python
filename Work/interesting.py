@@ -35,3 +35,9 @@ if __name__ == "__main__":
     s.sort()  # ['bar', 'foo', 'spam']
     t = sorted(s)  # s unchanged, t holds sorted values
 
+    import gzip
+    # Including the file mode of 'rt' is critical here.
+    # If you forget that, you’ll get byte strings instead of normal text strings.
+    with gzip.open('Data/portfolio.csv.gz', 'rt') as f:
+        for line in f:
+            print(line, end='')

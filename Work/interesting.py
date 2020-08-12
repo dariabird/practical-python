@@ -9,3 +9,29 @@ if __name__ == "__main__":
     '''
     help(s.upper)
 
+    '''
+    If the element is present more than once, index() will return the index of the first occurrence.
+    If the element is not found, it will raise a ValueError exception.
+    '''
+    names = ['Elwood','Jake','Curtis']
+    names.index('Curtis')
+
+    # Using the value
+    names.remove('Curtis')
+
+    # Using the index
+    del names[1]
+
+    # in-place sorting
+    s = [10, 1, 7, 3]
+    s.sort()  # [1, 3, 7, 10]
+
+    # Reverse order
+    s = [10, 1, 7, 3]
+    s.sort(reverse=True)  # [10, 7, 3, 1]
+
+    # It works with any ordered data
+    s = ['foo', 'bar', 'spam']
+    s.sort()  # ['bar', 'foo', 'spam']
+    t = sorted(s)  # s unchanged, t holds sorted values
+

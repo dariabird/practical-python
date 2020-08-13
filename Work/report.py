@@ -20,13 +20,12 @@ def read_portfolio(filename):
 def read_prices(filename):
     with open(filename, 'rt') as f:
         rows = csv.reader(f)
-        prices = []
+        prices = {}
         for row in rows:
             try:
-                d = {'name': row[0], 'price': float(row[1])}
-                prices.append(d)
+                prices[row[0]] = float(row[1])
             except IndexError:
-                print("Can't parse name or price")
+                pass
     return prices
 
 
@@ -40,7 +39,12 @@ if __name__ == '__main__':
     for s in portfolio:
         total += s['shares'] * s['price']
 
-    d = read_prices('Data/prices.csv')
-    pprint(d)
+    prices = read_prices('Data/prices.csv')
+
+    gain_loss = 0.
+    for p in portfolio:
+        if p['name'] in prices:
+            gain_loss += (p['price'] - prices[p['name']]) * p['shares']
+    print(gain_loss)
 
 

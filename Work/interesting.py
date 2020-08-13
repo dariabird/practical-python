@@ -48,3 +48,24 @@ if __name__ == "__main__":
     headers = next(rows)
     for row in rows:
         print(row)
+
+    s = {
+        'name': 'GOOG',
+        'shares': 100,
+        'price': 490.1
+    }
+    # To delete a value use the del statement.
+    del s['date']
+
+    # You can look up a value that might not exist and provide a default value in case it doesn’t.
+    # name = d.get(key, default)
+
+    prices = {}  # Initial empty dict
+
+    # Insert new items
+    prices['GOOG'] = 513.25
+    prices['CAT'] = 87.22
+    prices['IBM'] = 93.37
+
+    prices.get('IBM', 0.0)
+    prices.get('SCOX', 0.0)

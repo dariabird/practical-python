@@ -2,6 +2,7 @@
 #
 # Exercise 2.4
 import csv
+from pprint import pprint
 import sys
 
 
@@ -11,7 +12,7 @@ def read_portfolio(filename):
         headers = next(rows)
         portfolio = []
         for row in rows:
-            holding = (row[0], int(row[1]), float(row[2]))
+            holding = {'name': row[0], 'shares': int(row[1]), 'price': float(row[2])}
             portfolio.append(holding)
         return portfolio
 
@@ -23,6 +24,7 @@ if __name__ == '__main__':
         filename = 'Data/portfolio.csv'
     portfolio = read_portfolio(filename)
     total = 0.
-    for name, share, price in portfolio:
-        total += share * price
+    for s in portfolio:
+        total += s['shares'] * s['price']
     print(total)
+    pprint(portfolio)

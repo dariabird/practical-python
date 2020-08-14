@@ -29,22 +29,20 @@ def read_prices(filename):
     return prices
 
 
-if __name__ == '__main__':
-    if len(sys.argv) == 2:
-        filename = sys.argv[1]
-    else:
-        filename = 'Data/portfolio.csv'
-    portfolio = read_portfolio(filename)
-    total = 0.
-    for s in portfolio:
-        total += s['shares'] * s['price']
-
-    prices = read_prices('Data/prices.csv')
-
-    gain_loss = 0.
+def make_report(portfolio, prices):
+    report = []
     for p in portfolio:
-        if p['name'] in prices:
-            gain_loss += (p['price'] - prices[p['name']]) * p['shares']
-    print(gain_loss)
+        t = (p['name'], p['shares'], p['price'], prices[p['name']]-p['price'])
+        report.append(t)
+    return report
 
+
+if __name__ == '__main__':
+    portfolio = read_portfolio('Data/portfolio.csv')
+    print(portfolio)
+    prices = read_prices('Data/prices.csv')
+    report = make_report(portfolio, prices)
+
+    for r in report:
+        print(r)
 

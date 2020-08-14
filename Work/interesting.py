@@ -69,3 +69,24 @@ if __name__ == "__main__":
 
     prices.get('IBM', 0.0)
     prices.get('SCOX', 0.0)
+
+    '''
+    Format codes (after the : inside the {}) are similar to C printf(). Common codes include:
+    d       Decimal integer
+    b       Binary integer
+    x       Hexadecimal integer
+    f       Float as [-]m.dddddd
+    e       Float as [-]m.dddddde+-xx
+    g       Float, but selective use of E notation
+    s       String
+    c       Character (from integer)
+    
+    :>10d   Integer right aligned in 10-character field
+    :<10d   Integer left aligned in 10-character field
+    :^10d   Integer centered in 10-character field
+    :0.2f   Float with 2 digit precision
+    '''
+    '{:10s} {:10d} {:10.2f}'.format('IBM', 100, 91.1)
+    print('%5d %-5d %10d' % (3, 4, 5))
+    # Note: This is the only formatting available on byte strings.
+    print(b'%s has %n messages' % (b'Dave', 37))

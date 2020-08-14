@@ -37,11 +37,17 @@ def make_report(portfolio, prices):
     return report
 
 
+def formatted_price(price):
+    return f'${price:.2f}'
+
+
 if __name__ == '__main__':
     portfolio = read_portfolio('Data/portfolio.csv')
     prices = read_prices('Data/prices.csv')
     report = make_report(portfolio, prices)
 
+    headers = ('Name', 'Shares', 'Price', 'Change')
+    print('{:>10s} {:>10s} {:>10s} {:>10s}'.format(*headers))
+    print(f'{"":_>10s} {"":_>10s} {"":_>10s} {"":_>10s}')
     for name, shares, price, change in report:
-        print(f'{name:>10s} {shares:>10d} {price:>10.2f} {change:>10.2f}')
-
+        print(f'{name:>10s} {shares:>10d} {formatted_price(price):>10s} {change:>10.2f}')

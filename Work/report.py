@@ -12,7 +12,12 @@ def read_portfolio(filename):
         headers = next(rows)
         portfolio = []
         for row in rows:
-            holding = {'name': row[0], 'shares': int(row[1]), 'price': float(row[2])}
+            record = dict(zip(headers, row))
+            holding = {
+                'name': record['name'],
+                'shares': int(record['shares']),
+                'price': float(record['price'])
+            }
             portfolio.append(holding)
         return portfolio
 
@@ -42,12 +47,13 @@ def formatted_price(price):
 
 
 if __name__ == '__main__':
-    portfolio = read_portfolio('Data/portfolio.csv')
+    # portfolio = read_portfolio('Data/portfolio.csv')
+    portfolio = read_portfolio('Data/portfoliodate.csv')
     prices = read_prices('Data/prices.csv')
     report = make_report(portfolio, prices)
 
     headers = ('Name', 'Shares', 'Price', 'Change')
-    print('{:>10s} {:>10s} {:>10s} {:>10s}'.format(*headers))
+    print(('{:>10s} '*4).format(*headers))
     print(f'{"":_>10s} '*4)
     for name, shares, price, change in report:
         print(f'{name:>10s} {shares:>10d} {formatted_price(price):>10s} {change:>10.2f}')

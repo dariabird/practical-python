@@ -90,3 +90,37 @@ if __name__ == "__main__":
     print('%5d %-5d %10d' % (3, 4, 5))
     # Note: This is the only formatting available on byte strings.
     print(b'%s has %n messages' % (b'Dave', 37))
+
+# The syntax is range([start,] end [,step])
+for i in range(100):
+    # i = 0,1,...,99
+    pass
+for j in range(10,20):
+    # j = 10,11,..., 19
+    pass
+for k in range(10,50,2):
+    # k = 10,12,...,48
+    # Notice how it counts in steps of 2, not 1.
+    pass
+# The ending value is never included. It mirrors the behavior of slices.
+# start is optional. Default 0.
+# step is optional. Default 1.
+# range() computes values as needed. It does not actually store a large range of numbers.
+
+
+# The zip function takes multiple sequences and makes an iterator that combines them.
+columns = ['name', 'shares', 'price']
+values = ['GOOG', 100, 490.1 ]
+pairs = zip(columns, values)
+# A common use of zip is to create key/value pairs for constructing dictionaries.
+d = dict(zip(columns, values))
+
+# Sometimes the for statement, len(), and range() get used by novices in some kind of horrible
+# code fragment that looks like it emerged from the depths of a rusty C program.
+data = [1, 2, 3, 4, 5]
+for n in range(len(data)):
+        print(data[n])
+# Don’t do that! Not only does reading it make everyone’s eyes bleed,
+# it’s inefficient with memory and it runs a lot slower. 
+# Just use a normal for loop if you want to iterate over data.
+# Use enumerate() if you happen to need the index for some reason.

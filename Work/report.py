@@ -48,6 +48,6 @@ if __name__ == '__main__':
 
     headers = ('Name', 'Shares', 'Price', 'Change')
     print('{:>10s} {:>10s} {:>10s} {:>10s}'.format(*headers))
-    print(f'{"":_>10s} {"":_>10s} {"":_>10s} {"":_>10s}')
+    print(f'{"":_>10s} '*4)
     for name, shares, price, change in report:
         print(f'{name:>10s} {shares:>10d} {formatted_price(price):>10s} {change:>10.2f}')

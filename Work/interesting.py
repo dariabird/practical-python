@@ -121,6 +121,72 @@ data = [1, 2, 3, 4, 5]
 for n in range(len(data)):
         print(data[n])
 # Don’t do that! Not only does reading it make everyone’s eyes bleed,
-# it’s inefficient with memory and it runs a lot slower. 
+# it’s inefficient with memory and it runs a lot slower.
 # Just use a normal for loop if you want to iterate over data.
 # Use enumerate() if you happen to need the index for some reason.
+
+prices = {
+    'GOOG' : 490.1,
+    'AA' : 23.45,
+    'IBM' : 91.1,
+    'MSFT' : 34.23
+}
+pricelist = list(zip(prices.values(), prices.keys()))
+min(pricelist)
+max(pricelist)
+sorted(pricelist)
+
+a = [1, 2, 3, 4]
+b = ['w', 'x', 'y', 'z']
+c = [0.2, 0.4, 0.6, 0.8]
+list(zip(a, b, c))
+
+# Also, be aware that zip() stops once the shortest input sequence is exhausted.
+a = [1, 2, 3, 4, 5, 6]
+b = ['x', 'y', 'z']
+list(zip(a,b))
+
+# The collections module might be one of the most useful library modules for dealing with special purpose
+# kinds of data handling problems such as tabulating and indexing.
+portfolio = [
+    ('GOOG', 100, 490.1),
+    ('IBM', 50, 91.1),
+    ('CAT', 150, 83.44),
+    ('IBM', 100, 45.23),
+    ('GOOG', 75, 572.45),
+    ('AA', 50, 23.15)
+]
+# There are two IBM entries and two GOOG entries in this list.
+# The shares need to be combined together somehow.
+
+from collections import Counter
+total_shares = Counter()
+for name, shares, price in portfolio:
+    total_shares[name] += shares
+
+print(total_shares['IBM'] )    # 150
+
+portfolio = [
+    ('GOOG', 100, 490.1),
+    ('IBM', 50, 91.1),
+    ('CAT', 150, 83.44),
+    ('IBM', 100, 45.23),
+    ('GOOG', 75, 572.45),
+    ('AA', 50, 23.15)
+]
+
+# Like in the previous example, the key IBM should have two different tuples instead.
+# Solution: Use a defaultdict.
+
+from collections import defaultdict
+holdings = defaultdict(list)
+for name, shares, price in portfolio:
+    holdings[name].append((shares, price))
+print(holdings['IBM']) # [ (50, 91.1), (100, 45.23) ]
+
+# Problem: We want a history of the last N things. Solution: Use a deque.
+from collections import deque
+history = deque(maxlen=N)
+with open(filename) as f:
+    for line in f:
+        history.append(line)

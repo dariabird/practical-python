@@ -30,7 +30,7 @@ def read_portfolio_new(filename):
         portfolio = []
         types = [str, int, float]
         for row in rows:
-            converted = [func(value) for func, value in zip(types, row)]
+            converted = {name: func(val) for name, func, val in zip(headers, types, row)}
             portfolio.append(converted)
     return portfolio
 

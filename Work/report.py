@@ -20,7 +20,19 @@ def read_portfolio(filename):
                 'price': float(record['price'])
             }
             portfolio.append(holding)
-        return portfolio
+    return portfolio
+
+
+def read_portfolio_new(filename):
+    with open(filename, 'rt') as f:
+        rows = csv.reader(f)
+        headers = next(rows)
+        portfolio = []
+        types = [str, int, float]
+        for row in rows:
+            converted = [func(value) for func, value in zip(types, row)]
+            portfolio.append(converted)
+    return portfolio
 
 
 def read_prices(filename):

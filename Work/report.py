@@ -63,7 +63,7 @@ def make_report(portfolio: list, prices: list) -> list:
     return report
 
 
-def print_report(report: str):
+def print_report(report: list):
     headers = ('Name', 'Shares', 'Price', 'Change')
     print(('{:>10s} ' * 4).format(*headers))
     print(f'{"":_>10s} ' * 4)
@@ -71,12 +71,21 @@ def print_report(report: str):
         print(f'{name:>10s} {shares:>10d} {formatted_price(price):>10s} {change:>10.2f}')
 
 
-if __name__ == '__main__':
-    portfolio = read_portfolio('Data/portfolio.csv')
-    # portfolio = read_portfolio('Data/portfoliodate.csv')
-    prices = read_prices('Data/prices.csv')
+def portfolio_report(portfolio_filename: str, prices_filename: str):
+    portfolio = read_portfolio(portfolio_filename)
+    prices = read_prices(prices_filename)
     report = make_report(portfolio, prices)
     print_report(report)
+
+
+if __name__ == '__main__':
+    # portfolio_report('Data/portfolio.csv', 'Data/prices.csv')
+    # portfolio_report('Data/portfolio2.csv', 'Data/prices.csv')
+    files = ['Data/portfolio.csv', 'Data/portfolio2.csv']
+    for name in files:
+        print(f'{name:-^43s}')  # String centered in 43-character field of "-"
+        portfolio_report(name, 'Data/prices.csv')
+        print()
 
 
 

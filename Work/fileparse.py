@@ -4,7 +4,7 @@
 import csv
 
 
-def parse_csv(filename, select=None, types=None, has_headers=True, delimiter=','):
+def parse_csv(filename, select=None, types=None, has_headers=True, delimiter=',', silence_errors=True):
     '''
     Parse a CSV file into a list of records
     '''
@@ -24,20 +24,21 @@ def parse_csv(filename, select=None, types=None, has_headers=True, delimiter=','
             indices = []
         records = []
         for i, row in enumerate(rows, 1):
-            try:
-                if not row:    # Skip rows with no data
-                    continue
-                if indices:
-                    row = [row[index] for index in indices]
-                if types:
+            if not row:    # Skip rows with no data
+                continue
+            if indices:
+                row = [row[index] for index in indices]
+            if types:
+                try:
                     row = [func(val) for func, val in zip(types, row)]
-                if has_headers:
-                    record = dict(zip(headers, row))
-                else:
-                    record = tuple(row)
-                records.append(record)
-            except ValueError as e:
-                print(f'Row {i}: {row} Error: {e}')
+                except ValueError as e:
+                    if not silence_errors:
+                        print(f'Row {i}: {row} Error: {e}')
+            if has_headers:
+                record = dict(zip(headers, row))
+            else:
+                record = tuple(row)
+            records.append(record)
 
     return records
 

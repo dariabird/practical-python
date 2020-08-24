@@ -190,17 +190,17 @@ print(holdings['IBM']) # [ (50, 91.1), (100, 45.23) ]
 
 # Problem: We want a history of the last N things. Solution: Use a deque.
 from collections import deque
-history = deque(maxlen=N)
+history = deque(maxlen=10)
 with open(filename) as f:
     for line in f:
         history.append(line)
 
 holdings = Counter()
-    for s in portfolio:
-        holdings[s['name']] += s['shares']
-    print(holdings)
+for s in portfolio:
+    holdings[s['name']] += s['shares']
+print(holdings)
 
-    print(holdings.most_common(3))  # Get three most held stocks
+print(holdings.most_common(3))  # Get three most held stocks
 
     portfolio2 = read_portfolio('Data/portfolio2.csv')
     holdings2 = Counter()

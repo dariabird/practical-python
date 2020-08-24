@@ -23,28 +23,33 @@ def parse_csv(filename, select=None, types=None, has_headers=True, delimiter=','
         else:
             indices = []
         records = []
-        for row in rows:
-            if not row:    # Skip rows with no data
-                continue
-            if indices:
-                row = [row[index] for index in indices]
-            if types:
-                row = [func(val) for func, val in zip(types, row)]
-            if has_headers:
-                record = dict(zip(headers, row))
-            else:
-                record = tuple(row)
-            records.append(record)
+        for i, row in enumerate(rows, 1):
+            try:
+                if not row:    # Skip rows with no data
+                    continue
+                if indices:
+                    row = [row[index] for index in indices]
+                if types:
+                    row = [func(val) for func, val in zip(types, row)]
+                if has_headers:
+                    record = dict(zip(headers, row))
+                else:
+                    record = tuple(row)
+                records.append(record)
+            except ValueError as e:
+                print(f'Row {i}: {row} Error: {e}')
 
     return records
 
 
 if __name__ == '__main__':
-    portfolio = parse_csv('Data/portfolio.csv', types=[str, int, float])
-    print(portfolio)
-    shares_held = parse_csv('Data/portfolio.csv', select=['name', 'shares'], types=[str, int])
-    print(shares_held)
-    prices = parse_csv('Data/prices.csv', types=[str, float], has_headers=False)
-    print(prices)
-    portfolio = parse_csv('Data/portfolio.dat', types=[str, int, float], delimiter=' ')
+    # portfolio = parse_csv('Data/portfolio.csv', types=[str, int, float])
+    # print(portfolio)
+    # shares_held = parse_csv('Data/portfolio.csv', select=['name', 'shares'], types=[str, int])
+    # print(shares_held)
+    # prices = parse_csv('Data/prices.csv', types=[str, float], has_headers=False)
+    # print(prices)
+    # portfolio = parse_csv('Data/portfolio.dat', types=[str, int, float], delimiter=' ')
+    # print(portfolio)
+    portfolio = parse_csv('Data/missing.csv', types=[str, int, float])
     print(portfolio)

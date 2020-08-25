@@ -1,11 +1,13 @@
 # report.py
 #
 # Exercise 2.4
+import fileparse
 import csv
 
 
 def formatted_price(price: float) -> str:
     return f'${price:.2f}'
+
 
 def read_portfolio(filename: str) -> list:
     '''
@@ -86,6 +88,8 @@ if __name__ == '__main__':
         print(f'{name:-^43s}')  # String centered in 43-character field of "-"
         portfolio_report(name, 'Data/prices.csv')
         print()
+    portfolio = fileparse.parse_csv('Data/portfolio2.csv', select=['name', 'shares', 'price'], types=[str, int, float])
+    print(portfolio)
 
 
 

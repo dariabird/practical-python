@@ -28,20 +28,15 @@ def portfolio_cost_new(filename):
     return sum([p['shares'] * p['price'] for p in portfolio])
 
 
+def main(argv):
+    if len(argv) != 2:
+        raise SystemExit
+    portfile = argv[1]
+    print('Total cost: ', portfolio_cost_new(portfile))
+
+
 if __name__ == "__main__":
-    if len(sys.argv) == 2:
-        filename = sys.argv[1]
-    else:
-        filename = 'Data/portfolio.csv'
-    cost = portfolio_cost(filename)
-    print('Total cost:', cost)
-    cost2 = portfolio_cost_new(filename)
-    print(f'Total cost: {cost2}')
-
-    cost = portfolio_cost('Data/missing.csv')
-    print('Total cost:', cost)
-
-    cost = portfolio_cost('Data/portfoliodate.csv')
-    print('Total cost:', cost)
+    import sys
+    main(sys.argv)
 
 

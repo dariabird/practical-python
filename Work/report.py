@@ -80,16 +80,18 @@ def portfolio_report(portfolio_filename: str, prices_filename: str):
     print_report(report)
 
 
+def main(argv):
+    if len(argv) != 3:
+        raise SystemExit
+    portfile = argv[1]
+    pricefile = argv[2]
+    portfolio_report(portfile, pricefile)
+
+
 if __name__ == '__main__':
-    # portfolio_report('Data/portfolio.csv', 'Data/prices.csv')
-    # portfolio_report('Data/portfolio2.csv', 'Data/prices.csv')
-    files = ['Data/portfolio.csv', 'Data/portfolio2.csv']
-    for name in files:
-        print(f'{name:-^43s}')  # String centered in 43-character field of "-"
-        portfolio_report(name, 'Data/prices.csv')
-        print()
-    portfolio = fileparse.parse_csv('Data/portfolio2.csv', select=['name', 'shares', 'price'], types=[str, int, float])
-    print(portfolio)
+    import sys
+    main(sys.argv)
+
 
 
 

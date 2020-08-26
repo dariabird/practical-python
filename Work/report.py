@@ -14,11 +14,13 @@ def read_portfolio(filename: str) -> list:
     Read a stock portfolio file into a list of dictionaries with keys
     name, shares, and price.
     '''
-    return fileparse.parse_csv(filename, select=['name', 'shares', 'price'], types=[str, int, float])
+    with open(filename, 'rt') as f:
+        return fileparse.parse_csv(f, select=['name', 'shares', 'price'], types=[str, int, float])
 
 
 def read_prices(filename: str) -> dict:
-    rows = fileparse.parse_csv(filename, types=[str, float], has_headers=False)
+    with open(filename, 'rt') as f:
+        rows = fileparse.parse_csv(f, types=[str, float], has_headers=False)
     prices = {}
     for row in rows:
         try:

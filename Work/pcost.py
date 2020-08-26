@@ -3,7 +3,6 @@
 # Exercise 1.27 & 1.33
 import csv
 import report
-import sys
 
 
 def portfolio_cost(filename):

@@ -14,46 +14,17 @@ def read_portfolio(filename: str) -> list:
     Read a stock portfolio file into a list of dictionaries with keys
     name, shares, and price.
     '''
-    with open(filename, 'rt') as f:
-        rows = csv.reader(f)
-        headers = next(rows)
-        portfolio = []
-        for row in rows:
-            record = dict(zip(headers, row))
-            holding = {
-                'name': record['name'],
-                'shares': int(record['shares']),
-                'price': float(record['price'])
-            }
-            portfolio.append(holding)
-    return portfolio
-
-
-def read_portfolio_new(filename: str) -> list:
-    '''
-    Read a stock portfolio file into a list of dictionaries with keys
-    name, shares, and price using dict comprehension.
-    '''
-    with open(filename, 'rt') as f:
-        rows = csv.reader(f)
-        headers = next(rows)
-        portfolio = []
-        types = [str, int, float]
-        for row in rows:
-            converted = {name: func(val) for name, func, val in zip(headers, types, row)}
-            portfolio.append(converted)
-    return portfolio
+    return fileparse.parse_csv(filename, select=['name', 'shares', 'price'], types=[str, int, float])
 
 
 def read_prices(filename: str) -> dict:
-    with open(filename, 'rt') as f:
-        rows = csv.reader(f)
-        prices = {}
-        for row in rows:
-            try:
-                prices[row[0]] = float(row[1])
-            except IndexError:
-                pass
+    rows = fileparse.parse_csv(filename, types=[str, float], has_headers=False)
+    prices = {}
+    for row in rows:
+        try:
+            prices[row[0]] = row[1]
+        except IndexError:
+            pass
     return prices
 
 
@@ -91,7 +62,6 @@ def main(argv):
 if __name__ == '__main__':
     import sys
     main(sys.argv)
-
 
 
 

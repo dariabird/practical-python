@@ -12,8 +12,8 @@ class Stock:
 
 
 if __name__ == '__main__':
-    s = Stock('GOOG', 100, 490.10)
-    print(s.cost())
-    s.sell(25)
-    print(s.shares)
-    print(s.cost())
+    import fileparse
+    with open('Data/portfolio.csv') as lines:
+        portdicts = fileparse.parse_csv(lines, select=['name', 'shares', 'price'], types=[str, int, float])
+    portfolio = [Stock(d['name'], d['shares'], d['price']) for d in portdicts]
+    print(sum([s.cost() for s in portfolio]))

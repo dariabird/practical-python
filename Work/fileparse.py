@@ -12,7 +12,7 @@ def parse_csv(iterable, select=None, types=None, has_headers=True, delimiter=','
         raise ValueError("Parameter 'iterable' must be a file-like/iterable object")
     if select and not has_headers:
         raise RuntimeError("select argument requires column headers")
-    rows = [row.rstrip().lstrip().split(delimiter) for row in iterable]
+    rows = [row.strip().split(delimiter) for row in iterable]
 
     # Read the file headers
     headers = rows[0] if has_headers else []

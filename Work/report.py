@@ -2,7 +2,7 @@
 #
 # Exercise 2.4
 import fileparse
-import csv
+from stock import Stock
 
 
 def formatted_price(price: float) -> str:
@@ -15,7 +15,8 @@ def read_portfolio(filename: str) -> list:
     name, shares, and price.
     '''
     with open(filename, 'rt') as f:
-        return fileparse.parse_csv(f, select=['name', 'shares', 'price'], types=[str, int, float])
+        portfolio = fileparse.parse_csv(f, select=['name', 'shares', 'price'], types=[str, int, float])
+    return [Stock(d['name'], d['shares'], d['price']) for d in portfolio]
 
 
 def read_prices(filename: str) -> dict:
@@ -33,7 +34,7 @@ def read_prices(filename: str) -> dict:
 def make_report(portfolio: list, prices: list) -> list:
     report = []
     for p in portfolio:
-        t = (p['name'], p['shares'], p['price'], prices[p['name']] - p['price'])
+        t = (p.name, p.shares, p.price, prices[p.name] - p.price)
         report.append(t)
     return report
 

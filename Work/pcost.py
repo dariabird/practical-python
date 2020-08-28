@@ -3,6 +3,7 @@
 # Exercise 1.27 & 1.33
 import csv
 import report
+from stock import Stock
 
 
 def portfolio_cost(filename):
@@ -24,7 +25,7 @@ def portfolio_cost(filename):
 
 def portfolio_cost_new(filename):
     portfolio = report.read_portfolio(filename)
-    return sum([p['shares'] * p['price'] for p in portfolio])
+    return sum(p.cost() for p in portfolio)
 
 
 def main(argv):

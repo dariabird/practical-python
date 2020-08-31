@@ -72,11 +72,12 @@ def portfolio_report(portfoliofile, pricefile, fmt='txt'):
 
 
 def main(argv):
-    if len(argv) != 3:
+    if len(argv) != 4:
         raise SystemExit
     portfile = argv[1]
     pricefile = argv[2]
-    portfolio_report(portfile, pricefile)
+    fmt = argv[3]
+    portfolio_report(portfile, pricefile, fmt)
 
 
 if __name__ == '__main__':

@@ -32,7 +32,7 @@ def read_prices(filename: str) -> dict:
     return prices
 
 
-def make_report(portfolio: list, prices: list) -> list:
+def make_report(portfolio, prices):
     report = []
     for p in portfolio:
         t = (p.name, p.shares, p.price, prices[p.name] - p.price)
@@ -67,7 +67,13 @@ def portfolio_report(portfoliofile, pricefile):
     report = make_report(portfolio, prices)
 
     # Print it out
-    formatter = tableformat.TableFormatter()
+    formatter = tableformat.TextTableFormatter()
+    print_report(report, formatter)
+
+    formatter = tableformat.CSVTableFormatter()
+    print_report(report, formatter)
+
+    formatter = tableformat.HTMLTableFormatter()
     print_report(report, formatter)
 
 

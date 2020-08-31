@@ -3,6 +3,7 @@
 # Exercise 2.4
 import fileparse
 from stock import Stock
+import tableformat
 
 
 def formatted_price(price: float) -> str:
@@ -39,19 +40,35 @@ def make_report(portfolio: list, prices: list) -> list:
     return report
 
 
-def print_report(report: list):
-    headers = ('Name', 'Shares', 'Price', 'Change')
-    print(('{:>10s} ' * 4).format(*headers))
-    print(f'{"":_>10s} ' * 4)
-    for name, shares, price, change in report:
-        print(f'{name:>10s} {shares:>10d} {formatted_price(price):>10s} {change:>10.2f}')
+def print_report(reportdata, formatter):
+    """
+    Print a nicely formated table from a list of (name, shares, price, change) tuples.
+    """
+    formatter.headings(['Name', 'Shares', 'Price', 'Change'])
+    for name, shares, price, change in reportdata:
+        rowdata = [name, str(shares), f'{price:0.2f}', f'{change:0.2f}']
+        formatter.row(rowdata)
+    # headers = ('Name', 'Shares', 'Price', 'Change')
+    # print(('{:>10s} ' * 4).format(*headers))
+    # print(f'{"":_>10s} ' * 4)
+    # for name, shares, price, change in report:
+    #     print(f'{name:>10s} {shares:>10d} {formatted_price(price):>10s} {change:>10.2f}')
 
 
-def portfolio_report(portfolio_filename: str, prices_filename: str):
-    portfolio = read_portfolio(portfolio_filename)
-    prices = read_prices(prices_filename)
+def portfolio_report(portfoliofile, pricefile):
+    """
+    Make a stock report given portfolio and price data files.
+    """
+    # Read data files
+    portfolio = read_portfolio(portfoliofile)
+    prices = read_prices(pricefile)
+
+    # Create the report data
     report = make_report(portfolio, prices)
-    print_report(report)
+
+    # Print it out
+    formatter = tableformat.TableFormatter()
+    print_report(report, formatter)
 
 
 def main(argv):

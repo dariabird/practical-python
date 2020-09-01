@@ -81,7 +81,11 @@ def main(argv):
 
 
 if __name__ == '__main__':
-    import sys
-    main(sys.argv)
-
-
+    # import sys
+    # main(sys.argv)
+    s = Stock('GOOG', 100, 490.1)
+    columns = ['name', 'shares']
+    for colname in columns:
+        print(colname, '=', getattr(s, colname))
+    portfolio = read_portfolio('Data/portfolio.csv')
+    tableformat.print_table(portfolio, ['name', 'shares', 'price'], 'csv')

@@ -10,6 +10,9 @@ class Stock:
     def sell(self, amount):
         self.shares -= amount
 
+    def __repr__(self):
+        return f'Stock({self.name},{self.shares},{self.price})'
+
 
 if __name__ == '__main__':
     import fileparse

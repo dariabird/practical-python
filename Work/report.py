@@ -88,4 +88,4 @@ if __name__ == '__main__':
     for colname in columns:
         print(colname, '=', getattr(s, colname))
     portfolio = read_portfolio('Data/portfolio.csv')
-    tableformat.print_table(portfolio, ['name', 'shares', 'price'], 'csv')
+    tableformat.print_table(portfolio, ['name', 'shares', 'price'], 'txt')

@@ -70,7 +70,7 @@ def create_formatter(name):
 def print_table(portfoliodata, cols, fmt):
     formatter = create_formatter(fmt)
     formatter.headings(cols)
-    for p in portfoliodata[1:]:
+    for p in portfoliodata:
         formatter.row(str(getattr(p, col)) for col in cols)
 
 

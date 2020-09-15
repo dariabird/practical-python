@@ -25,7 +25,7 @@ def portfolio_cost(filename):
 
 def portfolio_cost_new(filename):
     portfolio = report.read_portfolio(filename)
-    return sum(p.cost() for p in portfolio)
+    return sum(p.cost for p in portfolio)
 
 
 def main(argv):

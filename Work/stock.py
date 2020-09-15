@@ -4,6 +4,7 @@ class Stock:
         self.shares = shares
         self.price = price
 
+    @property
     def cost(self):
         return self.price * self.shares
 
@@ -24,7 +25,7 @@ if __name__ == '__main__':
     with open('Data/portfolio.csv') as lines:
         portdicts = fileparse.parse_csv(lines, select=['name', 'shares', 'price'], types=[str, int, float])
     portfolio = [Stock(d['name'], d['shares'], d['price']) for d in portdicts]
-    print(sum([s.cost() for s in portfolio]))
+    print(sum([s.cost for s in portfolio]))
 
     print(NewStock.__bases__)
     print(NewStock.__mro__)

@@ -1,4 +1,6 @@
 class Stock:
+    __slots__ = ('name', 'shares', 'price')
+
     def __init__(self, name, shares, price):
         self.name = name
         self.shares = shares
@@ -29,3 +31,5 @@ if __name__ == '__main__':
 
     print(NewStock.__bases__)
     print(NewStock.__mro__)
+    s = Stock('GOOG', 100, 499.1)
+    print(s.__dict__) # 'Stock' object has no attribute '__dict__'

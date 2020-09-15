@@ -83,9 +83,24 @@ def main(argv):
 if __name__ == '__main__':
     # import sys
     # main(sys.argv)
-    s = Stock('GOOG', 100, 490.1)
-    columns = ['name', 'shares']
-    for colname in columns:
-        print(colname, '=', getattr(s, colname))
-    portfolio = read_portfolio('Data/portfolio.csv')
-    tableformat.print_table(portfolio, ['name', 'shares', 'price'], 'txt')
+    # s = Stock('GOOG', 100, 490.1)
+    # columns = ['name', 'shares']
+    # for colname in columns:
+    #     print(colname, '=', getattr(s, colname))
+    # portfolio = read_portfolio('Data/portfolio.csv')
+    # tableformat.print_table(portfolio, ['name', 'shares', 'price'], 'txt')
+    goog = Stock('GOOG', 100, 490.10)
+    ibm = Stock('IBM', 50, 91.23)
+    print(goog.__dict__)
+    print(ibm.__dict__)
+    goog.date = '6/11/2007'
+    print(goog.__dict__)
+    print(ibm.__dict__)
+    goog.__dict__['time'] = '9:45am'
+    print(goog.time)
+    print(goog.__class__)
+    print(ibm.__class__)
+    print(Stock.__dict__['cost'](goog))
+    Stock.foo = 42
+    print(goog.foo)
+    print(ibm.foo)

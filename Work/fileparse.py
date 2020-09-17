@@ -33,7 +33,7 @@ def parse_csv(iterable, select=None, types=None, has_headers=True, delimiter=','
             row = [row[index] for index in indices]
         if types:
             try:
-                row = [func(val) for func, val in zip(types, row)]
+                row = [func(val.strip('"')) for func, val in zip(types, row)]
             except ValueError as e:
                 if not silence_errors:
                     print(f'Row {i}: {row} Error: {e}')

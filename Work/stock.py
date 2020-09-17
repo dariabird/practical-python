@@ -23,13 +23,22 @@ class NewStock(Stock):
 
 
 if __name__ == '__main__':
-    import fileparse
-    with open('Data/portfolio.csv') as lines:
-        portdicts = fileparse.parse_csv(lines, select=['name', 'shares', 'price'], types=[str, int, float])
-    portfolio = [Stock(d['name'], d['shares'], d['price']) for d in portdicts]
-    print(sum([s.cost for s in portfolio]))
+    # import fileparse
+    # with open('Data/portfolio.csv') as lines:
+    #     portdicts = fileparse.parse_csv(lines, select=['name', 'shares', 'price'], types=[str, int, float])
+    # portfolio = [Stock(d['name'], d['shares'], d['price']) for d in portdicts]
+    # print(sum([s.cost for s in portfolio]))
+    #
+    # print(NewStock.__bases__)
+    # print(NewStock.__mro__)
+    # s = Stock('GOOG', 100, 499.1)
+    # print(s.__dict__) # 'Stock' object has no attribute '__dict__'
 
-    print(NewStock.__bases__)
-    print(NewStock.__mro__)
-    s = Stock('GOOG', 100, 499.1)
-    print(s.__dict__) # 'Stock' object has no attribute '__dict__'
+    x = [1, 2, 3, 4, 5]
+    it = x.__iter__()
+    print(it.__next__())
+    print(it.__next__())
+    print(it.__next__())
+    print(it.__next__())
+    print(it.__next__())
+    print(it.__next__())

@@ -2,6 +2,7 @@
 #
 # Exercise 2.4
 import fileparse
+from portfolio import Portfolio
 from stock import Stock
 import tableformat
 
@@ -16,8 +17,9 @@ def read_portfolio(filename: str) -> list:
     name, shares, and price.
     '''
     with open(filename, 'rt') as f:
-        portfolio = fileparse.parse_csv(f, select=['name', 'shares', 'price'], types=[str, int, float])
-    return [Stock(d['name'], d['shares'], d['price']) for d in portfolio]
+        portdicts = fileparse.parse_csv(f, select=['name', 'shares', 'price'], types=[str, int, float])
+    portfolio = [Stock(d['name'], d['shares'], d['price']) for d in portdicts]
+    return Portfolio(portfolio)
 
 
 def read_prices(filename: str) -> dict:
@@ -83,10 +85,10 @@ def main(argv):
 if __name__ == '__main__':
     import sys
     main(sys.argv)
-    s = Stock('GOOG', 100, 490.1)
-    columns = ['name', 'shares']
-    for colname in columns:
-        print(colname, '=', getattr(s, colname))
-    portfolio = read_portfolio('Data/portfolio.csv')
-    tableformat.print_table(portfolio, ['name', 'shares', 'price'], 'txt')
+    # s = Stock('GOOG', 100, 490.1)
+    # columns = ['name', 'shares']
+    # for colname in columns:
+    #     print(colname, '=', getattr(s, colname))
+    # portfolio = read_portfolio('Data/portfolio.csv')
+    # tableformat.print_table(portfolio, ['name', 'shares', 'price'], 'txt')
 

@@ -29,7 +29,8 @@ if __name__ == '__main__':
     #     change = float(fields[4])
     #     if name in portfolio:
     #         print(f'{name:>10s} {price:>10.2f} {change:>10.2f}')
+    import csv
     lines = follow('Data/stocklog.csv')
-    ibm = filematch(lines, 'IBM')
-    for line in ibm:
-        print(line)
+    rows = csv.reader(lines)
+    for row in rows:
+        print(row)

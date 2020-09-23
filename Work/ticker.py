@@ -31,11 +31,23 @@ def filter_symbols(rows, names):
             yield row
 
 
-if __name__ == '__main__':
+def ticker(portfile, logfile, fmt):
     import report
-
-    portfolio = report.read_portfolio('../Data/portfolio.csv')
-    rows = parse_stock_data(follow('../Data/stocklog.csv'))
+    import tableformat
+    portfolio = report.read_portfolio(portfile)
+    rows = parse_stock_data(follow(logfile))
     rows = filter_symbols(rows, portfolio)
+    formatter = tableformat.create_formatter(fmt)
+    formatter.headings(['Name', 'Price', 'Change'])
     for row in rows:
-        print(row)
+        formatter.row([row['name'], f"{row['price']:0.2f}", f"{row['change']:0.2f}"])
+
+
+if __name__ == '__main__':
+    ticker('../Data/portfolio.csv', '../Data/stocklog.csv', 'csv')
+    # portfolio = report.read_portfolio('../Data/portfolio.csv')
+    # rows = parse_stock_data(follow('../Data/stocklog.csv'))
+    # rows = filter_symbols(rows, portfolio)
+    # for row in rows:
+    #     print(row)
+

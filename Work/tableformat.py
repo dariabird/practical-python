@@ -75,6 +75,7 @@ def print_table(portfoliodata, cols, fmt):
     formatter = create_formatter(fmt)
     formatter.headings(cols)
     for p in portfoliodata:
+        print(p)
         rowdata = [str(getattr(p, col)) for col in cols]
         formatter.row(rowdata)
 

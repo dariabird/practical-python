@@ -11,7 +11,7 @@ def formatted_price(price: float) -> str:
     return f'${price:.2f}'
 
 
-def read_portfolio(filename: str) -> list:
+def read_portfolio(filename: str):
     '''
     Read a stock portfolio file into a list of dictionaries with keys
     name, shares, and price.
@@ -91,7 +91,7 @@ if __name__ == '__main__':
     #     print(colname, '=', getattr(s, colname))
     portfolio = read_portfolio('Data/portfolio.csv')
     tableformat.print_table(portfolio, ['name', 'shares', 'price'], 'txt')
-    print(len(portfolio))
-    print(portfolio[1])
-    print("IBM" in portfolio)
+    # print(len(portfolio))
+    # print(portfolio[1])
+    # print("IBM" in portfolio)
 

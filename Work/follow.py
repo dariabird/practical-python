@@ -3,7 +3,7 @@ import time
 
 
 def follow(filename):
-    with open('Data/stocklog.csv') as f:
+    with open(filename) as f:
         f.seek(0, os.SEEK_END)  # Move file pointer 0 bytes from end of file
         while True:
             line = f.readline()

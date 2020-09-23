@@ -25,9 +25,17 @@ def parse_stock_data(lines):
     return rows
 
 
-if __name__ == '__main__':
-    lines = follow('../Data/stocklog.csv')
+def filter_symbols(rows, names):
+    for row in rows:
+        if row['name'] in names:
+            yield row
 
-    rows = parse_stock_data(lines)
+
+if __name__ == '__main__':
+    import report
+
+    portfolio = report.read_portfolio('../Data/portfolio.csv')
+    rows = parse_stock_data(follow('../Data/stocklog.csv'))
+    rows = filter_symbols(rows, portfolio)
     for row in rows:
         print(row)

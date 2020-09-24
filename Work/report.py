@@ -87,9 +87,6 @@ if __name__ == '__main__':
     # main(sys.argv)
     portfolio = list(read_portfolio('Data/portfolio.csv'))
 
-    def stock_name(s):
-        return s.name
-
-    portfolio.sort(key=stock_name)
+    portfolio.sort(key=lambda s: s.shares)
     for s in portfolio:
         print(s)

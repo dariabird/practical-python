@@ -18,7 +18,7 @@ def read_portfolio(filename: str):
     '''
     with open(filename, 'rt') as f:
         portdicts = fileparse.parse_csv(f, select=['name', 'shares', 'price'], types=[str, int, float])
-    portfolio = [Stock(d['name'], d['shares'], d['price']) for d in portdicts]
+    portfolio = [Stock(**d) for d in portdicts]
     return Portfolio(portfolio)
 
 

@@ -13,14 +13,16 @@ def convert_types(rows, types):
 
 
 def make_dicts(rows, headers):
-    for row in rows:
-        yield dict(zip(headers, row))
+    return (dict(zip(headers, row)) for row in rows)
 
 
 def parse_stock_data(lines):
     rows = csv.reader(lines)
+    # rows = ((row[index] for index in [0, 1, 4]) for row in rows)
     rows = select_columns(rows, [0, 1, 4])
+    # rows = ((func(val) for func, val in zip([str, float, float], row)) for row in rows)
     rows = convert_types(rows, [str, float, float])
+    # rows = (dict(zip(['name', 'price', 'change'], row)) for row in rows)
     rows = make_dicts(rows, ['name', 'price', 'change'])
     return rows
 
@@ -36,7 +38,8 @@ def ticker(portfile, logfile, fmt):
     import tableformat
     portfolio = report.read_portfolio(portfile)
     rows = parse_stock_data(follow(logfile))
-    rows = filter_symbols(rows, portfolio)
+    # rows = filter_symbols(rows, portfolio)
+    rows = (row for row in rows if row['name'] in portfolio)
     formatter = tableformat.create_formatter(fmt)
     formatter.headings(['Name', 'Price', 'Change'])
     for row in rows:

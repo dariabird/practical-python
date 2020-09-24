@@ -11,13 +11,13 @@ def formatted_price(price: float) -> str:
     return f'${price:.2f}'
 
 
-def read_portfolio(filename: str):
+def read_portfolio(filename, **opts):
     '''
     Read a stock portfolio file into a list of dictionaries with keys
     name, shares, and price.
     '''
     with open(filename, 'rt') as f:
-        portdicts = fileparse.parse_csv(f, select=['name', 'shares', 'price'], types=[str, int, float])
+        portdicts = fileparse.parse_csv(f, select=['name', 'shares', 'price'], types=[str, int, float], **opts)
     portfolio = [Stock(**d) for d in portdicts]
     return Portfolio(portfolio)
 
@@ -94,4 +94,4 @@ if __name__ == '__main__':
     # print(len(portfolio))
     # print(portfolio[1])
     # print("IBM" in portfolio)
-
+    port = read_portfolio('Data/missing.csv', silence_errors=False)

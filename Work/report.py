@@ -12,14 +12,8 @@ def formatted_price(price: float) -> str:
 
 
 def read_portfolio(filename, **opts):
-    '''
-    Read a stock portfolio file into a list of dictionaries with keys
-    name, shares, and price.
-    '''
-    with open(filename, 'rt') as f:
-        portdicts = fileparse.parse_csv(f, select=['name', 'shares', 'price'], types=[str, int, float], **opts)
-    portfolio = [Stock(**d) for d in portdicts]
-    return Portfolio(portfolio)
+    with open(filename, 'rt') as lines:
+        return Portfolio.from_csv(lines)
 
 
 def read_prices(filename: str) -> dict:
@@ -50,11 +44,6 @@ def print_report(reportdata, formatter):
     for name, shares, price, change in reportdata:
         rowdata = [name, str(shares), f'{price:0.2f}', f'{change:0.2f}']
         formatter.row(rowdata)
-    # headers = ('Name', 'Shares', 'Price', 'Change')
-    # print(('{:>10s} ' * 4).format(*headers))
-    # print(f'{"":_>10s} ' * 4)
-    # for name, shares, price, change in report:
-    #     print(f'{name:>10s} {shares:>10d} {formatted_price(price):>10s} {change:>10.2f}')
 
 
 def portfolio_report(portfoliofile, pricefile, fmt='txt'):
@@ -85,8 +74,4 @@ def main(argv):
 if __name__ == '__main__':
     # import sys
     # main(sys.argv)
-    portfolio = list(read_portfolio('Data/portfolio.csv'))
-
-    portfolio.sort(key=lambda s: s.shares)
-    for s in portfolio:
-        print(s)
+    portfolio_report('Data/portfolio.csv', 'Data/prices.csv', 'txt')

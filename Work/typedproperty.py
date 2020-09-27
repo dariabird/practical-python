@@ -13,10 +13,15 @@ def typedproperty(name, expected_type):
     return prop
 
 
+String = lambda name: typedproperty(name, str)
+Integer = lambda name: typedproperty(name, int)
+Float = lambda name: typedproperty(name, float)
+
+
 class Stock:
-    name = typedproperty('name', str)
-    shares = typedproperty('shares', int)
-    price = typedproperty('price', float)
+    name = String('name')
+    shares = Integer('shares')
+    price = Float('price')
 
     def __init__(self, name, shares, price):
         self.name = name
@@ -26,5 +31,5 @@ class Stock:
 
 if __name__ == '__main__':
     s = Stock('IBM', 50, 91.1)
-    print(s)
+    print(s.name)
     s.shares = '100'

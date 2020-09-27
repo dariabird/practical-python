@@ -1,7 +1,8 @@
 # fileparse.py
-#
-# Exercise 3.3
-import csv
+import logging
+
+
+log = logging.getLogger(__name__)
 
 
 def parse_csv(iterable, select=None, types=None, has_headers=True, delimiter=',', silence_errors=True):
@@ -36,7 +37,9 @@ def parse_csv(iterable, select=None, types=None, has_headers=True, delimiter=','
                 row = [func(val.strip('"')) for func, val in zip(types, row)]
             except ValueError as e:
                 if not silence_errors:
-                    print(f'Row {i}: {row} Error: {e}')
+                    log.warning("Row %d: Couldn't convert %s", i, row)
+                    log.debug("Row %d: Reason %s", i, e)
+                continue
         if has_headers:
             record = dict(zip(headers, row))
         else:
@@ -47,10 +50,8 @@ def parse_csv(iterable, select=None, types=None, has_headers=True, delimiter=','
 
 
 if __name__ == '__main__':
-    lines = ['name,shares,price', 'AA,100,34.23', 'IBM,50,91.1', 'HPE,75,45.1']
-    port = parse_csv(lines, types=[str, int, float])
-    print(port)
-    import gzip
-    with gzip.open('Data/portfolio.csv.gz', 'rt') as file:
-        port = parse_csv(file, types=[str, int, float])
-    print(port)
+    logging.basicConfig()
+    logging.getLogger('fileparse').level = logging.DEBUG
+    import report
+    a = report.read_portfolio('Data/missing.csv', silence_errors=False)
+

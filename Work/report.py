@@ -13,7 +13,7 @@ def formatted_price(price: float) -> str:
 
 def read_portfolio(filename, **opts):
     with open(filename, 'rt') as lines:
-        return Portfolio.from_csv(lines)
+        return Portfolio.from_csv(lines, **opts)
 
 
 def read_prices(filename: str) -> dict:

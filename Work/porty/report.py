@@ -1,10 +1,10 @@
 # report.py
 #
 # Exercise 2.4
-import fileparse
-from portfolio import Portfolio
-from stock import Stock
-import tableformat
+from . import fileparse
+from .portfolio import Portfolio
+from .stock import Stock
+from . import tableformat
 
 
 def formatted_price(price: float) -> str:

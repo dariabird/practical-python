@@ -52,6 +52,6 @@ def parse_csv(iterable, select=None, types=None, has_headers=True, delimiter=','
 if __name__ == '__main__':
     logging.basicConfig()
     logging.getLogger('fileparse').level = logging.DEBUG
-    import report
+    from . import report
     a = report.read_portfolio('Data/missing.csv', silence_errors=False)
 
